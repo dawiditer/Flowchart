@@ -1,6 +1,8 @@
 package flowchart;
 
 import java.util.List;
+// TODO: the client should only be able to create symbols via the flowchart
+// TODO: eliminate redundancy, Activity and Decision have similar methods
 /**
  * Represents a symbol in a flowchart.
  * 
@@ -11,7 +13,7 @@ import java.util.List;
  * @author dawiditer
  *
  */
-public interface Symbol {
+interface Symbol {
 	/** Returns the title associated with this symbol */
 	public String getTitle();
 	/**

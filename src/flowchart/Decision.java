@@ -2,7 +2,7 @@ package flowchart;
 
 import java.util.List;
 
-public class Decision implements Symbol {
+class Decision implements Symbol {
 
 	@Override public String getTitle() {
 		// TODO Auto-generated method stub

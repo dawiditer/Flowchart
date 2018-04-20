@@ -17,7 +17,7 @@ import java.util.NoSuchElementException;
  * @see Symbol
  *
  */
-// use an RDT
+// TODO: use an RDT
 public interface Flowchart {
 	// TODO: design for extensibility and contraction
 	public Activity createActivity(final String title);
@@ -120,5 +120,5 @@ public interface Flowchart {
 	public boolean connectDecision(
 			final Decision source, 
 			final Symbol yesBranch, 
-			final Symbol noBranch);  
+			final Symbol noBranch); 
 }

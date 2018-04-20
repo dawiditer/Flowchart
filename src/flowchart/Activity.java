@@ -65,6 +65,7 @@ class Activity implements Symbol {
 		assert target != null;
 		boolean added = targets.add(target) || targets.contains(target);
 		
+		checkRep();
 		return added;
 	}
 	/** Returns true if this contains target as a target symbol */

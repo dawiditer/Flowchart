@@ -1,8 +1,7 @@
 package flowchart;
 
-import java.util.List;
-// TODO: the client should only be able to create symbols via the flowchart
-// TODO: eliminate redundancy, Activity and Decision have similar methods
+import java.util.Set;
+// TODO: the client should only be able to create symbols via the flowcharts
 /**
  * Represents a symbol in a flowchart.
  * 
@@ -17,18 +16,10 @@ interface Symbol {
 	/** Returns the title associated with this symbol */
 	public String getTitle();
 	/**
-	 * Returns all the symbol sources to this
-	 * 
-	 * @param target symbol having zero or more sources
-	 * @return a list of symbols to target, an empty list
-	 *     if target has no sources.
-	 */
-	public List<Symbol> getSources();
-	/**
 	 * Returns all the symbol targets from this
 	 *  
-	 * @return a list of symbols from source, an empty list
+	 * @return a set of symbols from source, an empty set
 	 *     if source has no targets.
 	 */
-	public List<Symbol> getTargets();
+	public Set<Symbol> getTargets();
 }

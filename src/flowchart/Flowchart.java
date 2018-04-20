@@ -24,10 +24,13 @@ import java.util.NoSuchElementException;
  * @author dawiditer
  *
  */
-// TODO: use an RDT
 public interface Flowchart {
 	// TODO: design for extensibility and contraction
+	// TODO: add methods to remove symbols
 	// Flowchart = Activity(title:String) + Decision(title:String)
+	public static Flowchart instantiate(final String label) {
+		throw new RuntimeException("unimplemented");
+	}
 	/**
 	 * Sets or resets an activity as the start symbol.
 	 * 
@@ -39,13 +42,13 @@ public interface Flowchart {
 	 * A call to this method is ineffective if {@code reset} is false
 	 * and a start already exists.
 	 *  
-	 * @param start non-empty String label identifying an activity symbol.
+	 * @param start Flowchart representing an activity symbol.
 	 * @param reset boolean that determines if the current start should be reset.
 	 * @return true if start is an activity symbol and has been set 
 	 *     as the start symbol, false otherwise.
 	 * @see #setStartIfAbsent(String)
 	 */
-	public boolean setStart(final String start, final boolean reset);
+	public boolean setStart(final Flowchart start, final boolean reset);
 	/**
 	 * Sets an activity as the start symbol if none has been set.
 	 * 
@@ -53,11 +56,11 @@ public interface Flowchart {
 	 * its call is similar to:
 	 * 		setStart(start, false)
 	 * 
-	 * @param start non-empty String label identifying an activity symbol.
+	 * @param start Flowchart representing an activity symbol.
 	 * @return true if start is an activity symbol and has been set 
 	 *     as the start symbol, false otherwise.
 	 */
-	public boolean setStartIfAbsent(final String start);
+	public boolean setStartIfAbsent(final Flowchart start);
 	/**
 	 * Sets an activity as the end symbol.
 	 * 
@@ -69,13 +72,13 @@ public interface Flowchart {
 	 * A call to this method is ineffective if {@code reset} is false
 	 * and an end symbol already exists.
 	 * 
-	 * @param end String label identifying an activity symbol.
+	 * @param end Flowchart representing an activity symbol.
 	 * @param reset boolean that determines if the current end should be reset.
 	 * @return true if end is an activity symbol and has been set
 	 *    as the end symbol, false otherwise.
-	 * @see #setEndIfAbsent(String)
+	 * @see #setEndIfAbsent(Flowchart)
 	 */
-	public boolean setEnd(final String end, final boolean reset);
+	public boolean setEnd(final Flowchart end, final boolean reset);
 	/**
 	 * Sets an activity as the end symbol if none has been set.
 	 * 
@@ -83,28 +86,28 @@ public interface Flowchart {
 	 * its call is similar to:
 	 * 		setEnd(start, false)
 	 * 
-	 * @param end non-empty String label identifying an activity symbol.
+	 * @param end Flowchart representing an activity symbol.
 	 * @return true if end is an activity symbol and has been set 
 	 *     as the end symbol, false otherwise.
 	 */
-	public boolean setEndIfAbsent(final String end);
+	public boolean setEndIfAbsent(final Flowchart end);
 	/**
 	 * Returns the label of the symbol that has been set as start.
 	 * 
-	 * @return String label identifying the activity that has been set
+	 * @return Flowchart representing the activity that has been set
 	 *    as the start symbol.
 	 * @throws NoSuchElementException if no start symbol exists
 	 */
-	public String getStart();
+	public Flowchart getStart();
 
 	/**
 	 * Returns the label of the symbol that has been set as end.
 	 * 
-	 * @return String label identifying the activity that has been set 
+	 * @return Flowchart representing  the activity that has been set 
 	 * 	  as the end symbol.
 	 * @throws NoSuchElementException if no end symbol exists
 	 */
-	public String getEnd();
+	public Flowchart getEnd();
 	// TODO: better implementation that avoids the use of null
 	// TODO: more cohesive implementation
 	/**
@@ -117,20 +120,20 @@ public interface Flowchart {
 	 * <p>If the source is an activity symbol, a singleton list is returned
 	 * containing the target(or null).
 	 * 
-	 * @param source String label of symbol having zero or more targets.
+	 * @param source Flowchart representing symbol having zero or more targets.
 	 * @return a list of target symbols from source such that:
 	 * 		list.size() == 1 if source is an activity
 	 * 		list.size() == 2 if source is a decision
 	 */
-	public List<String> getTargets(final String source);
+	public List<Flowchart> getTargets(final Flowchart source);
 	/**
 	 * Returns all the source symbols to a target
 	 * 
-	 * @param target String label of symbol having zero or more sources
+	 * @param target Flowchart representing symbol having zero or more sources
 	 * @return a list of symbols to target, an empty list
 	 *     if target has no sources.
 	 */
-	public List<String> getSources(final String target);
+	public List<Flowchart> getSources(final Flowchart target);
 	/**
 	 * Connects a source symbol to a target symbol
 	 * 
@@ -138,14 +141,14 @@ public interface Flowchart {
 	 * Since an activity can only have one target, a successful call to this method resets
 	 * the current {@code source}-{@code target} connection if it exists
 	 * 
-	 * @param source non-empty String label of an activity symbol that's not an end activity.
-	 * @param target non-empty String label of a symbol that's not a start activity.
+	 * @param source Flowchart representing an activity symbol that's not an end activity.
+	 * @param target Flowchart representing a symbol that's not a start activity.
 	 * @return true if source has been connected to target,
 	 *     false otherwise.
 	 * @throws IllegalArgumentException if source is not an activity symbol.
-	 * @see #connectActivity(String, String, boolean)
+	 * @see #connectActivity(Flowchart, Flowchart, boolean)
 	 */
-	public boolean connectActivity(final String source, final String target);
+	public boolean connectActivity(final Flowchart source, final Flowchart target);
 
 	/**
 	 * Connects a source symbol to a target symbol
@@ -155,13 +158,13 @@ public interface Flowchart {
 	 * A successful call to this method is ineffective if a {@code source}-{@code target}
 	 * connection exists prior to the call.
 	 * 
-	 * @param source non-empty String label of an activity symbol that's not an end activity.
-	 * @param target non-empty String label of a symbol that's not a start activity.
+	 * @param source Flowchart representing an activity symbol that's not an end activity.
+	 * @param target Flowchart representing a symbol that's not a start activity.
 	 * @return true if source has been connected to target,
 	 *     false otherwise.
 	 * @throws IllegalArgumentException if source is not an activity symbol.
 	 */
-	public boolean connectActivityIfAbsent(final String source, final String target);
+	public boolean connectActivityIfAbsent(final Flowchart source, final Flowchart target);
 	/**
 	 * Connects a decision symbol to both yes and no branches.
 	 * 
@@ -178,8 +181,8 @@ public interface Flowchart {
 	 *   connectDecision(source, yesBranch1, noBranch1) == connectDecision(source, yesBranch2, noBranch2)
 	 * if yesBranch1 == yesBranch2 and noBranch1 == noBranch2. 
 	 * 
-	 * @param source non-empty String label of a decision symbol.
-	 * @param yesBranch non-empty String label of a symbol connected 
+	 * @param source Flowchart representing a decision symbol.
+	 * @param yesBranch Flowchart representing a symbol connected 
 	 * 	   to the 'yes' path of a decision symbol.
 	 * @param noBranch non-null symbol connected to the 'no' path of a decision
 	 *     symbol.
@@ -188,9 +191,9 @@ public interface Flowchart {
 	 * @throws IllegalArgumentException if source is not a decision symbol.
 	 */
 	public boolean connectDecision(
-			final String source, 
-			final String yesBranch, 
-			final String noBranch);
+			final Flowchart source, 
+			final Flowchart yesBranch, 
+			final Flowchart noBranch);
 	/**
 	 * Connects a decision symbol to a yes branch.
 	 * 
@@ -201,16 +204,16 @@ public interface Flowchart {
 	 * <p>The method returns true if the {@code source} to {@code yesBranch} connection
 	 * already exists regardless of {@code reset}.
 	 * 
-	 * @param source non-empty String label of a decision symbol.
-	 * @param yesBranch non-empty String label of a symbol connected 
+	 * @param source Flowchart representing a decision symbol.
+	 * @param yesBranch Flowchart representing a symbol connected 
 	 * 	   to the 'yes' path of a decision symbol.
 	 * @param reset boolean that determines if the current connection should be reset.
 	 * @return true if source has been successfully connected to yesBranch, false otherwise.
 	 * @throws IllegalArgumentException if source is not a decision symbol.
 	 */
 	public boolean connectToYesBranch(
-			final String source, 
-			final String yesBranch, 
+			final Flowchart source, 
+			final Flowchart yesBranch, 
 			final boolean reset);
 	/**
 	 * Connects a decision symbol to a yes branch.
@@ -222,15 +225,15 @@ public interface Flowchart {
 	 * <p>The method returns true if the {@code source} to {@code noBranch} connection
 	 * already exists regardless of {@code reset}.
 	 * 
-	 * @param source non-empty String label of a decision symbol.
-	 * @param yesBranch non-empty String label of a symbol connected 
+	 * @param source Flowchart representing a decision symbol.
+	 * @param yesBranch Flowchart representing a symbol connected 
 	 * 	   to the 'no' path of a decision symbol.
 	 * @param reset boolean that determines if the current connection should be reset.
 	 * @return true if source has been successfully connected to noBranch, false otherwise.
 	 * @throws IllegalArgumentException if source is not a decision symbol.
 	 */
 	public boolean connectToNoBranch(
-			final String source, 
-			final String noBranch, 
+			final Flowchart source, 
+			final Flowchart noBranch, 
 			final boolean reset);
 }

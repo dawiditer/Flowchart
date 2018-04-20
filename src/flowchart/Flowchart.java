@@ -20,7 +20,7 @@ import java.util.NoSuchElementException;
 // TODO: use an RDT
 public interface Flowchart {
 	// TODO: design for extensibility and contraction
-	public Activity createActivity(final String title);
+	public String createActivity(final String label);
 	/**
 	 * Adds a decision symbol to this flowchart
 	 * 
@@ -30,7 +30,7 @@ public interface Flowchart {
 	 * @throws IllegalArgumentException if a symbol having the title
 	 *     already exists.
 	 */
-	public Decision createDecision(final String title);
+	public String createDecision(final String title);
 	/**
 	 * Returns all the symbol targets from a source
 	 *  
@@ -49,7 +49,7 @@ public interface Flowchart {
 	 * @return true if start is an activity symbol and has been set 
 	 *     as the start symbol, false otherwise.
 	 */
-	public boolean setStart(final Activity start);
+	public boolean setStart(final String start);
 	/**
 	 * Sets a Symbol as the end.
 	 * 
@@ -60,7 +60,7 @@ public interface Flowchart {
 	 * @return true if end is an activity symbol and has been set
 	 *    as the end symbol, false otherwise.
 	 */
-	public boolean setEnd(final Activity end);
+	public boolean setEnd(final String end);
 	/**
 	 * Returns the Symbol that has been set as start.
 	 * 
@@ -68,7 +68,7 @@ public interface Flowchart {
 	 *    symbol.
 	 * @throws NoSuchElementException if no start symbol has been set
 	 */
-	public Activity getStart();
+	public String getStart();
 
 	/**
 	 * Returns the Symbol that has been set as end.
@@ -77,7 +77,7 @@ public interface Flowchart {
 	 *    symbol.
 	 * @throws NoSuchElementException if no end symbol has been set
 	 */
-	public Activity getEnd();
+	public String getEnd();
 	/**
 	 * Adds an activity symbol to this flowchart
 	 * 
@@ -87,7 +87,7 @@ public interface Flowchart {
 	 * @throws IllegalArgumentException if a symbol having the title
 	 *     already exists.
 	 */
-	public List<Symbol> getTargets(final Symbol source);
+	public List<String> getTargets(final String source);
 	/**
 	 * Returns all the symbol sources to a target
 	 * 
@@ -95,7 +95,7 @@ public interface Flowchart {
 	 * @return a list of symbols to target, an empty list
 	 *     if target has no sources.
 	 */
-	public List<Symbol> getSources(final Symbol target);
+	public List<String> getSources(final String target);
 	/**
 	 * Connects a source symbol to a target symbol
 	 * 
@@ -105,7 +105,7 @@ public interface Flowchart {
 	 *     the source to target connection had already been established,
 	 *     false otherwise.
 	 */
-	public boolean connectSymbols(final Symbol source, final Symbol target);
+	public boolean connectSymbols(final String source, final String target);
 	/**
 	 * Connects a decision symbol to its corresponding yes/no branches.
 	 * 
@@ -118,7 +118,7 @@ public interface Flowchart {
 	 *     if the connection had already been established, false otherwise.
 	 */
 	public boolean connectDecision(
-			final Decision source, 
-			final Symbol yesBranch, 
-			final Symbol noBranch); 
+			final String title, 
+			final String yesBranch, 
+			final String noBranch); 
 }

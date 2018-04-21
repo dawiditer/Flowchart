@@ -4,27 +4,24 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-class Activity implements Flowchart {
+class Start implements Flowchart {
 	private final String label;
-	private final Set<Flowchart> sources  = new HashSet<>();
-	private Flowchart target = null;
+	private final Flowchart target =  null;
 	
 	// Abstraction Function
-	//	represents a flowchart as an activity connected to one
-	//	or more sources and one target.
+	//	represents a single flowchart as the start symbol having zero or one
+	//	target symbol that's not itself and no source symbol. 
 	// 
 	// Representation Invariant
 	//	- label is a non-empty string containing at least one non-whitespace character 
-	//    that identifies this Flowchart.
-	//	- sources is a set of zero or more Flowcharts whose this Flowchart is a target symbol.
-	//	- target is any other Flowchart but Start.
-	// 	  
+	//    that identifies this symbol.
+	//	- target is a Flowchart whose this symbol is the source.
+	//	- target cannot be this symbol.
+	//
 	// TODO: Safety from Exposure
-	
-	Activity(final String label) {
+	Start(final String label) {
 		this.label = label;
 	}
-
 	@Override
 	public Flowchart setStart(Flowchart start, boolean reset) {
 		// TODO Auto-generated method stub
@@ -60,13 +57,13 @@ class Activity implements Flowchart {
 		// TODO Auto-generated method stub
 		return null;
 	}
-	// USE Collections.singletonList()
+
 	@Override
 	public List<Flowchart> getTargets(Flowchart source) {
 		// TODO Auto-generated method stub
 		return null;
 	}
-	
+
 	@Override
 	public List<Flowchart> getSources(Flowchart target) {
 		// TODO Auto-generated method stub
@@ -102,6 +99,5 @@ class Activity implements Flowchart {
 		// TODO Auto-generated method stub
 		return null;
 	}
-
 
 }

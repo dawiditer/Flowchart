@@ -5,7 +5,7 @@ import java.util.List;
 import java.util.Set;
 
 class End implements Flowchart {
-	private final String title;
+	private final String label;
 	private final Set<Flowchart> sources = new HashSet<>();
 	
 	// Abstraction Function
@@ -13,14 +13,14 @@ class End implements Flowchart {
 	//	more sources that's not itself and no target symbol.
 	//
 	// Representation Invariant
-	//	- title is a non-empty string containing at least one non-whitespace character 
+	//	- label is a non-empty string containing at least one non-whitespace character 
 	//    that identifies this symbol.
 	//	- sources is a set of one or more Flowcharts whose this Flowchart is a target symbol.
 	//	- sources cannot contain this.
 	//	
 	// TODO: Safety from Exposure
-	End(final String title) {
-		this.title = title;
+	End(final String label) {
+		this.label = label;
 	}
 	@Override
 	public Flowchart setStart(Flowchart start, boolean reset) {

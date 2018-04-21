@@ -5,7 +5,7 @@ import java.util.List;
 import java.util.Set;
 
 class Decision implements Flowchart {
-	private final String title;
+	private final String label;
 	private final Set<Flowchart> sources = new HashSet<>();
 	private Flowchart yesBranch = null;
 	private Flowchart noBranch = null;
@@ -15,15 +15,15 @@ class Decision implements Flowchart {
 	//	or more sources and 2 targets as the yes and no branches.
 	//
 	// Representation Invariant
-	//	- title is a non-empty string containing at least one non-whitespace character 
+	//	- label is a non-empty string containing at least one non-whitespace character 
 	//    that identifies this symbol.
 	//	- yesBranch is any Flowchart except this and start.
 	//	- noBranch is any Flowchart except this and start.
 	//
 	// TODO: Safety From Exposure
 	
-	Decision(final String title) {
-		this.title = title;
+	Decision(final String label) {
+		this.label = label;
 	}
 	
 	@Override

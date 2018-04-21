@@ -5,7 +5,7 @@ import java.util.List;
 import java.util.Set;
 
 class Activity implements Flowchart {
-	private final String title;
+	private final String label;
 	private final Set<Flowchart> sources  = new HashSet<>();
 	private Flowchart target = null;
 	
@@ -14,15 +14,15 @@ class Activity implements Flowchart {
 	//	or more sources and one target.
 	// 
 	// Representation Invariant
-	//	- title is a non-empty string containing at least one non-whitespace character 
+	//	- label is a non-empty string containing at least one non-whitespace character 
 	//    that identifies this Flowchart.
 	//	- sources is a set of zero or more Flowcharts whose this Flowchart is a target symbol.
 	//	- target is any other Flowchart but Start.
 	// 	  
 	// TODO: Safety from Exposure
 	
-	Activity(final String title) {
-		this.title = title;
+	Activity(final String label) {
+		this.label = label;
 	}
 
 	@Override

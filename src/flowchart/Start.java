@@ -5,7 +5,7 @@ import java.util.List;
 import java.util.Set;
 
 class Start implements Flowchart {
-	private final String title;
+	private final String label;
 	private final Flowchart target =  null;
 	
 	// Abstraction Function
@@ -13,14 +13,14 @@ class Start implements Flowchart {
 	//	target symbol that's not itself and no source symbol. 
 	// 
 	// Representation Invariant
-	//	- title is a non-empty string containing at least one non-whitespace character 
+	//	- label is a non-empty string containing at least one non-whitespace character 
 	//    that identifies this symbol.
 	//	- target is a Flowchart whose this symbol is the source.
 	//	- target cannot be this symbol.
 	//
 	// TODO: Safety from Exposure
-	Start(final String title) {
-		this.title = title;
+	Start(final String label) {
+		this.label = label;
 	}
 	@Override
 	public Flowchart setStart(Flowchart start, boolean reset) {

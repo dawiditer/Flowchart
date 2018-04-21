@@ -21,16 +21,20 @@ import java.util.NoSuchElementException;
  * - A decision symbol has exactly 2 targets, a true branch and a false branch
  *   that connect to symbols based on a 'yes or no' choice.
  * - A decision symbol cannot be it's own target or it's own source. 
- * - All symbols between start and end must have at least one source. 
+ * - All symbols between start and end must have at least one source and one target. 
  *  
  * @author dawiditer
  *
  */
-public interface Flowchart {
-	// TODO: strengthen the preconditions. The client is being asked for a lot.
-	// TODO: design for extensibility and contraction
-	// TODO: add methods to remove symbols
-	// Flowchart = Start(label:String) + Activity(label:String) + Decision(label:String) + End(label:String)
+public interface Flowchart {    
+    // TODO: strengthen the preconditions. The client is being asked for a lot.
+    // TODO: design for extensibility and contraction
+    // TODO: add methods to remove symbols
+	// Datatype definition:
+	//     Flowchart = Start(label:String) 
+	//				   + Activity(label:String) 
+	//				   + Decision(label:String) 
+	//				   + End(label:String)
 	public static Flowchart instantiate(final String label) {
 		throw new RuntimeException("unimplemented");
 	}
